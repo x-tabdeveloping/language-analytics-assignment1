@@ -18,7 +18,7 @@ def postag_freqs(doc: Doc) -> dict:
     postags = [token.pos_ for token in doc]
     counts = Counter(postags)
     total = counts.total()
-    return {f"RelFreq {tag}": count / total for tag, count in counts.items()}
+    return {f"RelFreq {tag}": (count / total) * 10_000 for tag, count in counts.items()}
 
 
 def unique_named_entities(doc: Doc) -> dict:
