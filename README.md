@@ -21,7 +21,7 @@ Sort of like this:
 The script needs tqdm, pandas and spacy:
 
 ```bash
-pip install tqdm pandas spacy
+pip install -r requirements.txt
 ```
 
 ## Usage
