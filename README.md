@@ -45,5 +45,7 @@ This will produce a bunch of `.csv` files in the `output/` folder for each subco
 
 Every row of the tables contains result for one file in the corpus with relative frequencies of UPOS tags per 10000 words and number of unique named entities per category.
 
-> Additionally the script will produce a csv file with the CO2 emissions of the substasks in the code (`emissions/emissions.csv`).
+> Additionally the script will produce a csv file with the CO2 emissions of the substasks in the code (`emissions/`).
 > This is necessary for Assignment 5, and is not directly relevant to this assignment.
+
+> Note: The `emissions/emissions.csv` file should be ignored. This is due to the fact, that codecarbon can't track process and task emissions at the same time.
