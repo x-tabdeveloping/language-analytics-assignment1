@@ -1,12 +1,14 @@
 # language-analytics-assignment1
 First assignment for language analytics course.
 
+The assignment is about extracting POS tag and NER data from the Uppsala Student English Corpus using the SpaCy NLP framework.
+The data can be downloaded from the [official website](https://ota.bodleian.ox.ac.uk/repository/xmlui/handle/20.500.12024/2457).
+
 ## Setup:
 
 The corpus needs to be in the `data/` folder, where the USEcorpus folder should contain all the subcorpora in its subfolders:
 
-Sort of like this:
-
+The file hierarchy should follow this structure:
 ```
 - data
   - USEcorpus
@@ -18,7 +20,7 @@ Sort of like this:
     - c1
 ```
 
-The script needs tqdm, pandas and spacy:
+Install the requirements of the scripts:
 
 ```bash
 pip install -r requirements.txt
