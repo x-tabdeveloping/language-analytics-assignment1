@@ -29,7 +29,7 @@ pip install tqdm pandas spacy
 Run the script:
 
 ```bash
-python3 run_analysis.py
+python3 src/run_analysis.py
 ```
 
 This will produce a bunch of `.csv` files in the `output/` folder for each subcorpus.
