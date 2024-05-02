@@ -41,7 +41,7 @@ def main():
     with EmissionsTracker(
         project_name="pos_ner_spacy",
         save_to_file=True,
-        output_file=emissions_dir.joinpath("emissions.csv"),
+        output_file="emissions.csv",
         output_dir=emissions_dir,
     ) as tracker:
         subdirs = glob("data/USEcorpus/*")
