@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 import spacy
+from codecarbon import EmissionsTracker
 from spacy.tokens import Doc
 from tqdm import tqdm
 
@@ -33,29 +34,37 @@ def unique_named_entities(doc: Doc) -> dict:
 
 
 def main():
-    subdirs = glob("data/USEcorpus/*")
-    subdirs = map(Path, subdirs)
-    subdirs = [dir for dir in subdirs if dir.is_dir()]
-
     out_dir = Path("output/")
     out_dir.mkdir(exist_ok=True)
+    with EmissionsTracker(
+        project_name="pos_ner_spacy",
+        save_to_file=True,
+        output_file=out_dir.joinpath("emissions.csv"),
+    ) as tracker:
+        subdirs = glob("data/USEcorpus/*")
+        subdirs = map(Path, subdirs)
+        subdirs = [dir for dir in subdirs if dir.is_dir()]
 
-    nlp = spacy.load("en_core_web_sm")
-    for subdir in tqdm(subdirs, desc="Going through subdirectories."):
-        dir_name = subdir.stem
-        records = []
-        for file in subdir.glob("*.txt"):
-            with open(file, encoding="ISO-8859-1") as in_file:
-                text = in_file.read()
-            doc = nlp(text)
-            entry = {
-                "Filename": file.name,
-                **postag_freqs(doc),
-                **unique_named_entities(doc),
-            }
-            records.append(entry)
-        dir_table = pd.DataFrame.from_records(records)
-        dir_table.to_csv(out_dir.joinpath(f"{dir_name}.csv"))
+        tracker.start_task("load_model")
+        nlp = spacy.load("en_core_web_sm")
+        tracker.stop_task()
+        tracker.start_task("processing")
+        for subdir in tqdm(subdirs, desc="Going through subdirectories."):
+            dir_name = subdir.stem
+            records = []
+            for file in subdir.glob("*.txt"):
+                with open(file, encoding="ISO-8859-1") as in_file:
+                    text = in_file.read()
+                doc = nlp(text)
+                entry = {
+                    "Filename": file.name,
+                    **postag_freqs(doc),
+                    **unique_named_entities(doc),
+                }
+                records.append(entry)
+            dir_table = pd.DataFrame.from_records(records)
+            dir_table.to_csv(out_dir.joinpath(f"{dir_name}.csv"))
+        tracker.stop_task()
 
 
 if __name__ == "__main__":

@@ -42,3 +42,6 @@ This will produce a bunch of `.csv` files in the `output/` folder for each subco
 ```
 
 Every row of the tables contains result for one file in the corpus with relative frequencies of UPOS tags per 10000 words and number of unique named entities per category.
+
+> Additionally the script will produce a csv file with the CO2 emissions of the substasks in the code (`output/emissions.csv`).
+> This is necessary for Assignment 5, and is not directly relevant to this assignment.
