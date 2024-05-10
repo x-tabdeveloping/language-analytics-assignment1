@@ -49,3 +49,8 @@ Every row of the tables contains result for one file in the corpus with relative
 > This is necessary for Assignment 5, and is not directly relevant to this assignment.
 
 > Note: The `emissions/emissions.csv` file should be ignored. This is due to the fact, that codecarbon can't track process and task emissions at the same time.
+
+## Potential Limitations
+
+The code in this repository utilizes the `en_core_web_sm` SpaCy model. Results are likely to be slightly inaccurate, as this model is not the most performant out of all English SpaCy models. A transformer-based pipeline would likely outperform this model at POS tagging and named entity recognition.
+Efficiency could also be made better by disabling unneccesary components in the pipeline, such as the parser or the lemmatizer.
